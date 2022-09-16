@@ -115,6 +115,7 @@
 .list-data {
   display: grid;
   grid-template-columns: auto auto;
+  padding-top: 70px;
 }
 
 h3 {

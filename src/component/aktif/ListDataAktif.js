@@ -1,8 +1,8 @@
 import React from "react";
 import ListAktif from "./ListAktif";
-import { showFormattedDate } from "./../data/data";
+import { showFormattedDate } from "../../data/data";
 
-function ListDataAktif({ data, onDelete, onArchive }) {
+function ListDataAktif({ data }) {
   const list = data.filter((note) => note.archived === false);
   if (list.length === 0) {
     return (
@@ -14,7 +14,7 @@ function ListDataAktif({ data, onDelete, onArchive }) {
   return (
     <div className="list-data" id="aktif">
       {list.map((note) => (
-        <ListAktif id={note.id} title={note.title} body={note.body} onArchive={onArchive} createdAt={showFormattedDate(note.createdAt)} onDelete={onDelete} />
+        <ListAktif id={note.id} title={note.title} body={note.body} createdAt={showFormattedDate(note.createdAt)} />
       ))}
     </div>
   );

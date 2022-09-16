@@ -1,8 +1,9 @@
 import React from "react";
 import ListArchive from "./ListArchive";
-import { showFormattedDate } from "./../data/data";
+import { showFormattedDate } from "../../data/data";
+// import DetailArchive from "./arsip/DetailArchive";
 
-function ListDataArsip({ data, onDelete, onArchive }) {
+function ListDataArsip({ data }) {
   let list = data.filter((note) => note.archived === true);
   if (list.length === 0) {
     return (
@@ -14,7 +15,7 @@ function ListDataArsip({ data, onDelete, onArchive }) {
   return (
     <div className="list-data">
       {list.map((note) => (
-        <ListArchive key={note.id} id={note.id} {...note} onArchive={onArchive} onDelete={onDelete} createdAt={showFormattedDate(note.createdAt)} />
+        <ListArchive key={note.id} id={note.id} {...note} title={note.title} body={note.body} createdAt={showFormattedDate(note.createdAt)} />
       ))}
     </div>
   );

@@ -1,8 +1,12 @@
 import React from "react";
-import InputData from "./inputData";
+import InputData from "./input/inputData";
 import { getData } from "../data/data";
-import ListData from "./ListData";
 import SearchNote from "./SearchNote";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ListDataAktif from "./aktif/ListDataAktif";
+import ListDataArsip from "./arsip/ListDataArsip";
+import ListDetail from "./arsip/ListDetail";
+import ListActive from "./aktif/ListActive";
 
 class NoteApp extends React.Component {
   constructor(props) {
@@ -82,9 +86,39 @@ class NoteApp extends React.Component {
   render() {
     return (
       <div className="container">
-        <SearchNote onSearch={this.onSearch} />
-        <InputData addNote={this.onChangeAddNote} />
-        <ListData data={this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
+        <div class="nav">
+          <a href="/">
+            <button className="button etc-btn">Note Active</button>
+          </a>
+          <a href="/archive">
+            <button className="button etc-btn">Note Archive</button>
+          </a>
+        </div>
+        <Router>
+          <Routes>
+            <Route path="/input" element={<InputData addNote={this.onChangeAddNote} />} />
+            <Route
+              path="/"
+              element={
+                <div>
+                  <SearchNote onSearch={this.onSearch} />
+                  <ListDataAktif data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
+                </div>
+              }
+            />
+            <Route
+              path="/archive"
+              element={
+                <div>
+                  <SearchNote onSearch={this.onSearch} />
+                  <ListDataArsip data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
+                </div>
+              }
+            />
+          </Routes>
+        </Router>
+        <ListDetail data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
+        <ListActive data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
       </div>
     );
   }

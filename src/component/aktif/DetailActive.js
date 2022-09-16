@@ -1,21 +1,23 @@
 import React from "react";
-import { showFormattedDate } from "./../data/data";
-function ListAktif({ id, title, body, createdAt, onDelete, onArchive }) {
+
+const DetailActive = ({ id, onArchive, onDelete, title, body, createdAt }) => {
   return (
-    <div class="listcard">
-      <h4>{title}</h4>
-      <p>{showFormattedDate(createdAt)}</p>
+    <div>
+      <h2>{title}</h2>
+      <p>{createdAt}</p>
       <div class="body">{body}</div>
-      <div class="btn">
+      <a href="/">
         <button className="button delete" onClick={() => onDelete(id)}>
           Delete
         </button>
+      </a>
+      <a href="/">
         <button className="button etc-btn" onClick={() => onArchive(id)}>
           Archive
         </button>
-      </div>
+      </a>
     </div>
   );
-}
+};
 
-export default ListAktif;
+export default DetailActive;
