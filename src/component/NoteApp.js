@@ -2,7 +2,7 @@ import React from "react";
 import InputData from "./input/inputData";
 import { getData } from "../data/data";
 import SearchNote from "./SearchNote";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ListDataAktif from "./aktif/ListDataAktif";
 import ListDataArsip from "./arsip/ListDataArsip";
 import ListDetail from "./arsip/ListDetail";
@@ -86,17 +86,28 @@ class NoteApp extends React.Component {
   render() {
     return (
       <div className="container">
-        <div class="nav">
-          <a href="/">
-            <button className="button etc-btn">Note Active</button>
-          </a>
-          <a href="/archive">
-            <button className="button etc-btn">Note Archive</button>
-          </a>
-        </div>
         <Router>
+          <div className="nav">
+            <Link to="/">
+              <button className="button etc-btn">Note Active</button>
+            </Link>
+            <Link to="/archive">
+              <button className="button etc-btn">Note Archive</button>
+            </Link>
+            <Link to="/input">
+              <button className="button etc-btn">Input</button>
+            </Link>
+          </div>
+          <ListActive data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
+          <ListDetail data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
           <Routes>
             <Route path="/input" element={<InputData addNote={this.onChangeAddNote} />} />
+            {this.state.data.map((note) => (
+              <Route path={`archive/${note.id}`} key={note.id.toString()} element={<></>} />
+            ))}
+            {this.state.data.map((note) => (
+              <Route path={`active/${note.id}`} key={note.id.toString()} element={<></>} />
+            ))}
             <Route
               path="/"
               element={
@@ -115,10 +126,16 @@ class NoteApp extends React.Component {
                 </div>
               }
             />
+            <Route
+              path="*"
+              element={
+                <center>
+                  <h1>404 NOT FOUND!!!</h1>
+                </center>
+              }
+            />
           </Routes>
         </Router>
-        <ListDetail data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
-        <ListActive data={this.state.data} {...this.state.data} onDelete={this.onEventDelete} onArchive={this.onChangeArchive} />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import ListArchive from "./ListArchive";
 import { showFormattedDate } from "../../data/data";
+import { PropTypes } from "prop-types";
 // import DetailArchive from "./arsip/DetailArchive";
 
 function ListDataArsip({ data }) {
@@ -12,12 +13,18 @@ function ListDataArsip({ data }) {
       </div>
     );
   }
+
   return (
     <div className="list-data">
       {list.map((note) => (
-        <ListArchive key={note.id} id={note.id} {...note} title={note.title} body={note.body} createdAt={showFormattedDate(note.createdAt)} />
+        <ListArchive key={note.id.toString()} id={note.id} {...note} title={note.title} body={note.body} createdAt={showFormattedDate(note.createdAt)} />
       ))}
     </div>
   );
 }
+
+ListDataArsip.propTypes = {
+  data: PropTypes.array,
+};
+
 export default ListDataArsip;

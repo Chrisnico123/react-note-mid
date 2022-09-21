@@ -48,7 +48,18 @@ class InputData extends React.Component {
           <br />
           <textarea className="text-area" placeholder="Note ... " value={this.state.body} onChange={this.onChangeBody} required></textarea>
           <br />
-          <button className="btn-create">Create</button>
+          <button
+            className="btn-create"
+            onClick={() => {
+              if (this.state.title.length > 0 && this.state.body.length > 0) {
+                alert("Note Success Added !!!");
+              } else {
+                alert("Note Failed Added !!!");
+              }
+            }}
+          >
+            Create
+          </button>
         </form>
       </div>
     );

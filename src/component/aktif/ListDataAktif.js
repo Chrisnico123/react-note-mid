@@ -1,6 +1,7 @@
 import React from "react";
 import ListAktif from "./ListAktif";
 import { showFormattedDate } from "../../data/data";
+import { PropTypes } from "prop-types";
 
 function ListDataAktif({ data }) {
   const list = data.filter((note) => note.archived === false);
@@ -14,9 +15,13 @@ function ListDataAktif({ data }) {
   return (
     <div className="list-data" id="aktif">
       {list.map((note) => (
-        <ListAktif id={note.id} title={note.title} body={note.body} createdAt={showFormattedDate(note.createdAt)} />
+        <ListAktif id={note.id} key={note.id} title={note.title} body={note.body} createdAt={showFormattedDate(note.createdAt)} />
       ))}
     </div>
   );
 }
+
+ListDataAktif.propTypes = {
+  data: PropTypes.array,
+};
 export default ListDataAktif;
